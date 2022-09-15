@@ -3,10 +3,16 @@ const app = express()
 const userRouter = require("./routers/user")
 const cors = require('cors')
 
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+
 require('dotenv').config();
 
 const connectDB = require('./config/db')
 const port = process.env.PORT || 8080;
+
 connectDB()
 
 process.on('unhandledRejection', error => {
@@ -17,7 +23,7 @@ process.on('unhandledRejection', error => {
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(cors(corsOptions))
 
 app.use("/user", userRouter);
 
